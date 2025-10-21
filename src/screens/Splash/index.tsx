@@ -1,0 +1,50 @@
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  StyleSheet,
+  Image,
+  Animated,
+} from 'react-native';
+import images from '../../assets/images';
+
+
+const SplashScreen = ({ onAnimationEnd }: { onAnimationEnd: () => void }) => {
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    // giữ splash 1.5s rồi fade-out trong 0.5s
+    setTimeout(() => {
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 1500,
+        useNativeDriver: true,
+      }).start(() => {
+        onAnimationEnd();
+      });
+    }, 1500);
+  }, []);
+  return (
+    <Animated.View
+      style={[styles.container, { transform: [{ translateY: fadeAnim }] }]}
+    >
+      <Image
+        source={images.company_logo}
+        style={styles.splash}
+      />
+    </Animated.View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+  },
+  splash: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+  },
+});
+
+export default SplashScreen;
