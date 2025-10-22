@@ -15,13 +15,15 @@ export const Screen_Name = {
   ChiTietKhachHang: 'ChiTietKhachHang',
   ThayDoiThuTuHienThi: 'ThayDoiThuTuHienThi',
   ThemDonHang: 'ThemDonHang',
-  DetailContact_Screen: 'DetailContact_Screen',
-  CardContact: 'CardContact',
+  DetailCustomer_Screen: 'DetailCustomer_Screen',
+  CardCustomer: 'CardCustomer',
   Profile: 'Profile',
   DonHang: 'DonHang',
   Khach: 'Khach',
   CoHoi: 'CoHoi',
   Setting: 'Setting',
+
+  DetailOrder: 'DetailOrder',
   //Other
   Splash_Screen: 'Splash_Screen',
   Loading_Screen: 'Loading_Screen',

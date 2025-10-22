@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   navTitle: {
-    fontSize: Fonts.xxlarge,
+    fontSize: Fonts.large,
     color: colors.black,
     fontWeight: '500',
     textAlign: 'center',

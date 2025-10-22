@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { ms, spacing } from '../../../../utils/spacing';
-import { Fonts } from '../../../../utils/fontSize';
-import { colors } from '../../../../utils/color';
+import { ms, spacing } from '../../../utils/spacing';
+import { Fonts } from '../../../utils/fontSize';
+import { colors } from '../../../utils/color';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  cardContactWrapper: {
+  statusbar: {},
+  cardWrapper: {
     paddingVertical: spacing.small,
     borderWidth: 0.5,
     justifyContent: 'center',
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     borderColor: colors.blue,
     borderRadius: 50,
   },
-  contactInfo: { paddingLeft: spacing.small, flex: 1 },
+  Info: { paddingLeft: spacing.small, flex: 1 },
   description: {
     flexDirection: 'row',
     alignItems: 'center',

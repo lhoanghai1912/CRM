@@ -4,10 +4,8 @@ import { Screen_Name } from './ScreenName';
 import BottomTabNavigator from './BottomTabNavigator';
 import TiemNang from '../screens/HomeStack/TiemNang';
 import ThietLapPhanHe from '../screens/HomeStack/ThietLapPhanHe';
-import ChiTietKhachHang from '../screens/HomeStack/ChiTietKhachHang';
 import ThayDoiThuTuHienThi from '../screens/HomeStack/ThayDoiThuTuHienThi';
 import ThemDonHang from '../screens/HomeStack/ThemDonHang';
-import DetailContact from '../screens/HomeStack/Contact/Detail';
 
 const Stack = createNativeStackNavigator();
 

@@ -11,6 +11,7 @@ import DonHang from '../screens/HomeStack/DonHang';
 import CoHoi from '../screens/HomeStack/CoHoi';
 import Setting from '../screens/HomeStack/Setting';
 import Khach from '../screens/HomeStack/Khach';
+import DonHangStack from './OrderStack';
 
 // Các màn hình cho các tab
 
@@ -32,7 +33,7 @@ const BottomTabNavigator = () => {
         tabBarIcon: ({ focused }) => {
           const iconMap = {
             Home_Screen: focused ? icons.home_focus : icons.home,
-            TiemNang: focused ? icons.chat_focus : icons.chat,
+            DonHang: focused ? icons.document_focus : icons.document,
             Khach: focused ? icons.noti_focus : icons.noti,
             CoHoi: focused ? icons.username_focus : icons.username,
             Setting: focused ? icons.settings : icons.settings,
@@ -51,12 +52,11 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen name={Screen_Name.Home_Screen} component={HomeStack} />
-      <Tab.Screen name={Screen_Name.TiemNang} component={TiemNang} />
+      <Tab.Screen name={Screen_Name.DonHang} component={DonHangStack} />
       <Tab.Screen name={Screen_Name.Khach} component={Khach} />
       <Tab.Screen name={Screen_Name.CoHoi} component={CoHoi} />
       <Tab.Screen name={Screen_Name.Setting} component={Setting} />
       {token && <></>}
-
       {/* ✅ Thêm 2 tab mới nếu có token */}
     </Tab.Navigator>
   );
