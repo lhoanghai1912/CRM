@@ -8,7 +8,7 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import { coHoiData, donHangData } from '../../../utils/data';
+import { coHoiData, donHangData, hoSoData } from '../../../utils/data';
 import CustomHeader from '../../../components/CustomHeader';
 import icons from '../../../assets/icons';
 import { Screen_Name } from '../../../navigation/ScreenName';
@@ -18,19 +18,20 @@ import { colors } from '../../../utils/color';
 import CardOrder from '../Card/Order';
 import { navigate } from '../../../navigation/RootNavigator';
 import CardChange from '../Card/Change';
+import CardRutHoSo from '../Card/RutHoSo';
 
 const PAGE_SIZE = 10;
 
-const CoHoi = ({ navigation }) => {
+const RutHoSo = ({ navigation }) => {
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const [isShow, setIsShow] = useState(true);
-  const [changeList, setChangeList] = useState(coHoiData);
+  const [changeList, setChangeList] = useState(hoSoData);
   const data = changeList.slice(0, page * PAGE_SIZE);
 
   // Load thêm data khi scroll tới cuối
   const handleLoadMore = () => {
-    if (data.length < coHoiData.length) {
+    if (data.length < hoSoData.length) {
       setPage(prev => prev + 1);
     }
   };
@@ -51,7 +52,7 @@ const CoHoi = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <CustomHeader
-        title="Co hoi"
+        title="Rut Ho So"
         leftIcon={icons.back}
         leftPress={() => navigation.goBack()}
         rightIcon={icons.settings}
@@ -83,7 +84,7 @@ const CoHoi = ({ navigation }) => {
             contentContainerStyle={{}} // Tăng paddingBottom
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
-              <CardChange change={item} setChangeList={setChangeList} />
+              <CardRutHoSo hoSo={item} setHoSoList={setChangeList} />
             )}
             onEndReached={handleLoadMore}
             onEndReachedThreshold={0.2}
@@ -99,16 +100,20 @@ const CoHoi = ({ navigation }) => {
               zIndex: 99,
             }}
             onPress={() => {
-              navigate(Screen_Name.DetailChange, {
-                change: {
-                  id: `CH${changeList.length + 1}`,
-                  customer: [],
-                  interset: '',
-                  proposal: [],
+              console.log('id', changeList.length + 1);
+              navigate(Screen_Name.DetailHoSo, {
+                hoso: {
+                  id: `HS${changeList.length + 1}`,
+                  order: undefined, // hoặc bỏ trường này
+                  orderId: '',
+                  products: [],
+                  ngayDeNghiRut: new Date().toISOString().split('T')[0],
+                  nguoiDeNghi: 'Chu tai khoan hien tai',
                   note: '',
+                  status: '',
                 },
                 onSave: handleAddOrder,
-                isNew: true, // truyền thêm để biết là thêm mới
+                isNew: true,
               });
             }}
           >
@@ -121,9 +126,9 @@ const CoHoi = ({ navigation }) => {
       )}
     </SafeAreaView>
     // <View>
-    //   <Text>CoHoi Screen</Text>
+    //   <Text>RutHoSo Screen</Text>
     // </View>
   );
 };
 
-export default CoHoi;
+export default RutHoSo;

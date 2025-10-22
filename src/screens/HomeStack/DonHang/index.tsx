@@ -8,14 +8,13 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import { donHangData, tiemNangData } from '../../../utils/data';
+import { donHangData } from '../../../utils/data';
 import CustomHeader from '../../../components/CustomHeader';
 import icons from '../../../assets/icons';
 import { Screen_Name } from '../../../navigation/ScreenName';
 import AppStyles from '../../../components/AppStyle';
 import { ms, spacing } from '../../../utils/spacing';
 import { colors } from '../../../utils/color';
-import CardCustomer from '../Card/Customer';
 import CardOrder from '../Card/Order';
 import { navigate } from '../../../navigation/RootNavigator';
 
@@ -25,8 +24,8 @@ const DonHang = ({ navigation }) => {
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const [isShow, setIsShow] = useState(true);
-  // Lấy data theo page
-  const data = donHangData.slice(0, page * PAGE_SIZE);
+  const [donHangList, setDonHangList] = useState(donHangData);
+  const data = donHangList.slice(0, page * PAGE_SIZE);
 
   // Load thêm data khi scroll tới cuối
   const handleLoadMore = () => {
@@ -41,6 +40,10 @@ const DonHang = ({ navigation }) => {
     setPage(1);
     setTimeout(() => setRefreshing(false), 500); // Giả lập refresh
   }, []);
+
+  const handleAddOrder = newOrder => {
+    setDonHangList(prev => [{ ...newOrder, id: `DH${Date.now()}` }, ...prev]);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
@@ -63,7 +66,7 @@ const DonHang = ({ navigation }) => {
         }}
         onPress={() => setIsShow(prev => !prev)}
       >
-        <Text style={AppStyles.text}> {`# ${tiemNangData.length}`}</Text>
+        <Text style={AppStyles.text}> {`# ${donHangList.length}`}</Text>
         <Image style={AppStyles.icon} source={isShow ? icons.down : icons.up} />
       </TouchableOpacity>
       {isShow && (
@@ -76,7 +79,9 @@ const DonHang = ({ navigation }) => {
             }}
             contentContainerStyle={{}} // Tăng paddingBottom
             keyExtractor={item => item.id}
-            renderItem={({ item }) => <CardOrder order={item} />}
+            renderItem={({ item }) => (
+              <CardOrder order={item} setDonHangList={setDonHangList} />
+            )}
             onEndReached={handleLoadMore}
             onEndReachedThreshold={0.2}
             refreshControl={
@@ -88,12 +93,22 @@ const DonHang = ({ navigation }) => {
               position: 'absolute',
               bottom: 30,
               right: 20,
-              // elevation: 4,
               zIndex: 99,
             }}
             onPress={() => {
-              // Xử lý thêm người ở đây, ví dụ mở màn hình thêm mới
-              // navigation.navigate(Screen_Name.AddContact);
+              navigate(Screen_Name.DetailOrder, {
+                order: {
+                  id: '',
+                  type: 'retail',
+                  customer: '',
+                  products: [],
+                  date: '',
+                  status: '',
+                  note: '',
+                },
+                onSave: handleAddOrder,
+                isNew: true, // truyền thêm để biết là thêm mới
+              });
             }}
           >
             <Image

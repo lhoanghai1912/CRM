@@ -8,7 +8,7 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
-import { donHangData, tiemNangData } from '../../../utils/data';
+import { donHangData, customerList } from '../../../utils/data';
 import CustomHeader from '../../../components/CustomHeader';
 import icons from '../../../assets/icons';
 import { Screen_Name } from '../../../navigation/ScreenName';
@@ -61,7 +61,7 @@ const TiemNang = ({ navigation }) => {
         }}
         onPress={() => setIsShow(prev => !prev)}
       >
-        <Text style={AppStyles.text}> {`# ${tiemNangData.length}`}</Text>
+        <Text style={AppStyles.text}> {`# ${customerList.length}`}</Text>
         <Image style={AppStyles.icon} source={isShow ? icons.down : icons.up} />
       </TouchableOpacity>
       {isShow && (
@@ -73,7 +73,9 @@ const TiemNang = ({ navigation }) => {
           }}
           contentContainerStyle={{}} // Tăng paddingBottom
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <CardCustomer customer={item} />}
+          renderItem={({ item }) => (
+            <CardCustomer customer={item} setCustomerList={() => {}} />
+          )}
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.2}
           refreshControl={

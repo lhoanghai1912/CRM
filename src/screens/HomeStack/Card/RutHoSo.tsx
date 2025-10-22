@@ -8,43 +8,44 @@ import AppStyles from '../../../components/AppStyle';
 import { formatPriceToTy } from '../../../components/formatPrice';
 import { Fonts } from '../../../utils/fontSize';
 import { spacing } from '../../../utils/spacing';
+import moment from 'moment';
 
-type CardOrderProps = {
-  order: any;
-  setDonHangList: (fn: (prev: any[]) => any[]) => void;
+type CardRutHoSoProps = {
+  hoSo: any;
+  setHoSoList: (fn: (prev: any[]) => any[]) => void;
 };
 
-const CardOrder: React.FC<CardOrderProps> = ({ order, setDonHangList }) => {
+const CardRutHoSo: React.FC<CardRutHoSoProps> = ({ hoSo, setHoSoList }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Đã giao':
+      case 'Đã rút':
         return '#4CAF50'; // xanh lá
-      case 'Đang xử lý':
+      case 'Đã duyệt':
         return '#2196F3'; // xanh dương
-      case 'Chờ thanh toán':
+      case 'Chờ duyệt':
         return '#FFC107'; // vàng
-      case 'Đã hủy':
+      case 'Từ chối':
         return '#F44336'; // đỏ
-      case 'Đang vận chuyển':
-        return '#9C27B0'; // tím
       default:
         return '#333';
     }
   };
 
-  const handleUpdateOrder = updatedOrder => {
-    setDonHangList(prev =>
-      prev.map(order => (order.id === updatedOrder.id ? updatedOrder : order)),
+  const handleUpdateHoSo = updatedHoSo => {
+    setHoSoList(prev =>
+      prev.map(hoSo => (hoSo.id === updatedHoSo.id ? updatedHoSo : hoSo)),
     );
   };
+
+  console.log('HoSo in CardRutHoSo:', hoSo);
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() =>
-          navigate(Screen_Name.DetailOrder, {
-            order,
-            onSave: handleUpdateOrder, // truyền hàm cập nhật vào params
+          navigate(Screen_Name.DetailHoSo, {
+            hoSo,
+            onSave: handleUpdateHoSo, // truyền hàm cập nhật vào params
           })
         }
         style={[styles.cardWrapper]}
@@ -56,48 +57,39 @@ const CardOrder: React.FC<CardOrderProps> = ({ order, setDonHangList }) => {
                 flex: 1,
                 marginVertical: spacing.medium,
                 borderLeftWidth: 2,
-                borderColor: getStatusColor(order.status),
+                borderColor: getStatusColor(hoSo.status),
               }}
             />
           </View>
           <View style={styles.Info}>
-            {/* <Text
-              style={[
-                AppStyles.title,
-                { marginBottom: 0, fontSize: Fonts.large },
-              ]}
-              numberOfLines={2}
-            >
-              {order.product}
-            </Text> */}
             <Text style={[AppStyles.text]} numberOfLines={1}>
-              {order.customer}
+              Mã hồ sơ : {hoSo.id}
             </Text>
             <Text style={[AppStyles.text]} numberOfLines={1}>
-              {order.type === 'retail' ? 'Bán lẻ' : 'Dự án'} - SL:{' '}
-              {order.products.reduce((sum, p) => sum + p.quantity, 0)}
+              Ngày đề nghị rút :{' '}
+              {moment(hoSo.ngayDeNghiRut).format('DD/MM/YYYY')}
             </Text>
             <Text style={[AppStyles.text]} numberOfLines={1}>
-              Tổng giá trị:{' '}
-              {formatPriceToTy(
-                order.products.reduce(
-                  (sum, p) => sum + p.price * p.quantity,
-                  0,
-                ),
-              )}
+              Đơn hàng đề nghị rút : {hoSo.order?.id}
+            </Text>
+            <Text style={[AppStyles.text]} numberOfLines={1}>
+              Người đề nghị rút : {hoSo.nguoiDeNghi}
+            </Text>
+            <Text style={[AppStyles.text]} numberOfLines={1}>
+              Ghi chú: {hoSo.note}
             </Text>
             <Text
               style={[
                 AppStyles.text,
                 {
-                  color: getStatusColor(order.status),
+                  color: getStatusColor(hoSo.status),
                   fontWeight: 'bold',
                   marginTop: 4,
                 },
               ]}
               numberOfLines={1}
             >
-              {order.status}
+              {hoSo.status}
             </Text>
           </View>
         </View>
@@ -106,4 +98,4 @@ const CardOrder: React.FC<CardOrderProps> = ({ order, setDonHangList }) => {
   );
 };
 
-export default CardOrder;
+export default CardRutHoSo;

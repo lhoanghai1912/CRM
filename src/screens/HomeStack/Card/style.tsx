@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   companyImage: {
+    marginRight: spacing.medium,
     width: ms(60),
     height: ms(60),
     resizeMode: 'cover',

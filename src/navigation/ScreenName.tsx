@@ -15,7 +15,7 @@ export const Screen_Name = {
   ChiTietKhachHang: 'ChiTietKhachHang',
   ThayDoiThuTuHienThi: 'ThayDoiThuTuHienThi',
   ThemDonHang: 'ThemDonHang',
-  DetailCustomer_Screen: 'DetailCustomer_Screen',
+  DetailCustomer: 'DetailCustomer',
   CardCustomer: 'CardCustomer',
   Profile: 'Profile',
   DonHang: 'DonHang',
@@ -24,6 +24,10 @@ export const Screen_Name = {
   Setting: 'Setting',
 
   DetailOrder: 'DetailOrder',
+  DetailChange: 'DetailChange',
+  RutHoSo: 'RutHoSo',
+  DetailHoSo: 'DetailHoSo',
+
   //Other
   Splash_Screen: 'Splash_Screen',
   Loading_Screen: 'Loading_Screen',

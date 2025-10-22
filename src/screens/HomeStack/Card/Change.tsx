@@ -9,18 +9,15 @@ import { formatPriceToTy } from '../../../components/formatPrice';
 import { Fonts } from '../../../utils/fontSize';
 import images from '../../../assets/images';
 
-type CardCustomerProps = {
-  customer: any;
-  setCustomerList: (fn: (prev: any[]) => any[]) => void;
+type CardChangeProps = {
+  change: any;
+  setChangeList: (fn: (prev: any[]) => any[]) => void;
 };
 
-const CardCustomer: React.FC<CardCustomerProps> = ({
-  customer,
-  setCustomerList,
-}) => {
-  const handleUpdateCustomer = updatedCustomer => {
-    setCustomerList(prev =>
-      prev.map(c => (c.id === updatedCustomer.id ? updatedCustomer : c)),
+const CardChange: React.FC<CardChangeProps> = ({ change, setChangeList }) => {
+  const handleUpdateChange = updatedChange => {
+    setChangeList(prev =>
+      prev.map(c => (c.id === updatedChange.id ? updatedChange : c)),
     );
   };
 
@@ -28,9 +25,9 @@ const CardCustomer: React.FC<CardCustomerProps> = ({
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() =>
-          navigate(Screen_Name.DetailCustomer, {
-            customer,
-            onSave: handleUpdateCustomer, // truyền hàm cập nhật vào params
+          navigate(Screen_Name.DetailChange, {
+            change,
+            onSave: handleUpdateChange, // truyền hàm cập nhật vào params
           })
         }
         style={[styles.cardWrapper]}
@@ -38,13 +35,13 @@ const CardCustomer: React.FC<CardCustomerProps> = ({
         <View style={styles.mainContent}>
           <Image
             source={
-              customer.avt && /^https?:\/\//.test(customer.avt)
-                ? { uri: customer.avt }
-                : customer.companyLogoUrl &&
-                  /^https?:\/\//.test(customer.companyLogoUrl)
-                ? { uri: customer.companyLogoUrl }
-                : customer.logoUrl
-                ? { uri: `${link.url}${customer.logoUrl}` }
+              change.avt && /^https?:\/\//.test(change.avt)
+                ? { uri: change.avt }
+                : change.companyLogoUrl &&
+                  /^https?:\/\//.test(change.companyLogoUrl)
+                ? { uri: change.companyLogoUrl }
+                : change.logoUrl
+                ? { uri: `${link.url}${change.logoUrl}` }
                 : images.avt_default // ảnh mặc định nếu không có uri hợp lệ
             }
             style={styles.companyImage}
@@ -57,21 +54,13 @@ const CardCustomer: React.FC<CardCustomerProps> = ({
               ]}
               numberOfLines={2}
             >
-              {customer.name}
+              {change.customer?.name}
             </Text>
-            {customer.company && (
+            {change.interest && (
               <Text style={[AppStyles.text]} numberOfLines={1}>
-                {customer.company}
+                {change.interest}
               </Text>
             )}
-            <Text style={[AppStyles.text]} numberOfLines={1}>
-              {customer.phone
-                ? `${customer.phone} ${
-                    customer.position ? `- ${customer.position}` : ''
-                  }`
-                : customer.position}
-              {/* Assuming you want to display the customer's position */}
-            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -79,4 +68,4 @@ const CardCustomer: React.FC<CardCustomerProps> = ({
   );
 };
 
-export default CardCustomer;
+export default CardChange;

@@ -12,6 +12,10 @@ import CoHoi from '../screens/HomeStack/CoHoi';
 import Setting from '../screens/HomeStack/Setting';
 import Khach from '../screens/HomeStack/Khach';
 import DonHangStack from './OrderStack';
+import KhachStack from './CustomerStack';
+import CoHoiStack from './ChangeStack';
+import RutHoSo from '../screens/HomeStack/RutHoSo';
+import RutHoSoStack from './RutHoSoStack';
 
 // Các màn hình cho các tab
 
@@ -36,6 +40,7 @@ const BottomTabNavigator = () => {
             DonHang: focused ? icons.document_focus : icons.document,
             Khach: focused ? icons.noti_focus : icons.noti,
             CoHoi: focused ? icons.username_focus : icons.username,
+            RutHoSo: focused ? icons.apple : icons.apple,
             Setting: focused ? icons.settings : icons.settings,
           };
 
@@ -53,8 +58,9 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen name={Screen_Name.Home_Screen} component={HomeStack} />
       <Tab.Screen name={Screen_Name.DonHang} component={DonHangStack} />
-      <Tab.Screen name={Screen_Name.Khach} component={Khach} />
-      <Tab.Screen name={Screen_Name.CoHoi} component={CoHoi} />
+      <Tab.Screen name={Screen_Name.Khach} component={KhachStack} />
+      <Tab.Screen name={Screen_Name.CoHoi} component={CoHoiStack} />
+      <Tab.Screen name={Screen_Name.RutHoSo} component={RutHoSoStack} />
       <Tab.Screen name={Screen_Name.Setting} component={Setting} />
       {token && <></>}
       {/* ✅ Thêm 2 tab mới nếu có token */}
